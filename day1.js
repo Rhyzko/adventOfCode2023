@@ -997,25 +997,24 @@ const code = ['1six7396484',
     '1dgschj',
     'nine8foursnczninednds',
     '9sevensixrsrgmclkvthkgtxqtwovtlxfrdnllxvsghslh',
-    'seven443six8three31']
-
+    'seven443six8three31'];
 const decodeArray = code.map((line) => {
-    line = line.replaceAll('one', 'o1ne')
-    line = line.replaceAll('two', 't2wo')
-    line = line.replaceAll('three', 'th3ree')
-    line = line.replaceAll('four', 'f4our')
-    line = line.replaceAll('five', 'f5ive')
-    line = line.replaceAll('six', 's6ix')
-    line = line.replaceAll('seven', 's7even')
-    line = line.replaceAll('eight', 'e8ight')
-    line = line.replaceAll('nine', 'n9ine')
-    return line
-})
-
+    line = line.replaceAll('one', 'o1ne');
+    line = line.replaceAll('two', 't2wo');
+    line = line.replaceAll('three', 'th3ree');
+    line = line.replaceAll('four', 'f4our');
+    line = line.replaceAll('five', 'f5ive');
+    line = line.replaceAll('six', 's6ix');
+    line = line.replaceAll('seven', 's7even');
+    line = line.replaceAll('eight', 'e8ight');
+    line = line.replaceAll('nine', 'n9ine');
+    return line;
+});
 const firstAndLastDigits = decodeArray.map((line) => {
-    const firstNumber = line.split('').filter(c => c >= 0 || c <= 9)[0]
-    const lastNumber = line.split('').reverse().filter(c => c >= 0 || c <= 9)[0]
-    return Number(`${firstNumber}${lastNumber}`)
-})
-const sum = firstAndLastDigits.reduce((acc, curr) => acc + curr, 0)
-console.log(sum)
+    const firstNumber = line.split('').filter(c => Number(c) >= 0 || Number(c) <= 9)[0];
+    const lastNumber = line.split('').reverse().filter(c => Number(c) >= 0 || Number(c) <= 9)[0];
+    return Number(`${firstNumber}${lastNumber}`);
+});
+const sum = firstAndLastDigits.reduce((acc, curr) => acc + curr, 0);
+console.log(sum);
+//# sourceMappingURL=day1.js.map

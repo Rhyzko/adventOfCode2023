@@ -97,60 +97,55 @@ const input = ['Game 1: 1 blue, 2 green, 3 red; 7 red, 8 green; 1 green, 2 red, 
     'Game 97: 1 green, 6 red, 1 blue; 6 red, 3 green, 6 blue; 9 green, 5 blue, 9 red; 13 red, 7 green',
     'Game 98: 9 red, 12 green, 2 blue; 1 blue, 11 green, 10 red; 10 red, 2 green',
     'Game 99: 4 red, 13 blue, 7 green; 7 green, 5 blue, 6 red; 7 green, 11 blue; 10 green, 2 red, 8 blue',
-    'Game 100: 2 green, 1 blue; 9 red, 8 green, 1 blue; 4 red, 10 green, 1 blue; 17 green, 8 red; 5 green, 1 blue, 7 red; 14 red, 12 green']
-
+    'Game 100: 2 green, 1 blue; 9 red, 8 green, 1 blue; 4 red, 10 green, 1 blue; 17 green, 8 red; 5 green, 1 blue, 7 red; 14 red, 12 green'];
 const isRoundValid = (round) => {
     let blue = 0;
     let green = 0;
     let red = 0;
-
     if (round.includes("blue")) {
         blue = parseInt(round);
-    } else if (round.includes("green")) {
+    }
+    else if (round.includes("green")) {
         green = parseInt(round);
-    } else if (round.includes("red")) {
+    }
+    else if (round.includes("red")) {
         red = parseInt(round);
     }
-
     return blue <= 14 && green <= 13 && red <= 12;
-}
-
+};
 const array = input.map((game, index) => {
     const gameCubes = game.split(': ')[1].split(";").map((round) => round.split(","));
-    const gameCubesRepartition = gameCubes.reduce(
-        (acc, round) => {
-            round.forEach((ball) => {
-                if (ball.includes("blue")) {
-                    acc.blue.push(parseInt(ball));
-                } else if (ball.includes("green")) {
-                    acc.green.push(parseInt(ball));
-                } else if (ball.includes("red")) {
-                    acc.red.push(parseInt(ball));
-                }
-            });
-            return acc;
-        },
-        { blue: [], green: [], red: [] }
-    );
-
+    const gameCubesRepartition = gameCubes.reduce((acc, round) => {
+        round.forEach((ball) => {
+            if (ball.includes("blue")) {
+                acc.blue.push(parseInt(ball));
+            }
+            else if (ball.includes("green")) {
+                acc.green.push(parseInt(ball));
+            }
+            else if (ball.includes("red")) {
+                acc.red.push(parseInt(ball));
+            }
+        });
+        return acc;
+    }, { blue: [], green: [], red: [] });
     const minimalConfiguration = {
         blue: Math.max(...gameCubesRepartition.blue),
         green: Math.max(...gameCubesRepartition.green),
         red: Math.max(...gameCubesRepartition.red),
-    }
+    };
     const total = minimalConfiguration.blue * minimalConfiguration.green * minimalConfiguration.red;
     return {
         id: index + 1,
         roundsValid: gameCubes.every((round) => round.every((ball) => isRoundValid(ball))),
         total
-    }
-})
+    };
+});
 console.log(array);
 // Part 1
 const possibleWins = array.filter((game) => game.roundsValid);
 const possibleWinsIdsTotal = possibleWins.map((game) => game.id).reduce((acc, id) => acc + id, 0);
 console.log(possibleWinsIdsTotal);
-
 // Part 2
 console.log(array.map((game) => game.total).reduce((acc, total) => acc + total, 0));
-
+//# sourceMappingURL=day2.js.map
